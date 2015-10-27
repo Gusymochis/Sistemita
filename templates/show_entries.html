@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <dl>
+        <dt>Nombre:
+        <dd><input type=text size=30 name=title>
+        <dt>Construccion:
+        <dd><input name=text size=30></input>
+        <dt>Terreno:
+        <dd><input name=text size=30></input>
+        <dt>Precio:
+        <dd><input name=text size=30></input>
+        <dt>Balance:
+        <dd><input name=text size=30></input>
+        <dt>Estatus:
+        <dd><input name=text size=30></input>
+        <dt>Vendedor:
+        <dd><input name=text size=30></input>
+        <dd><input type=submit value=Agregar>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% else %}
+    <li><em>No se encontro ninguna casa en la base de datos!</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

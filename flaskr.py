@@ -25,7 +25,7 @@ def teardown_request(exception):
 
 @app.route('/')
 def show_entries():
-    cur = g.db.execute('select nombre, vendedor, construccion, terreno, precio, balance, status from casas order by id desc')
+    cur = g.db.execute('select nombre, vendedor, construccion, terreno, precio, balance, status from casa order by id desc')
     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     return render_template('show_entries.html', entries=entries)
 

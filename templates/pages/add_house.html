@@ -1,25 +1,89 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
-    <form action="{{ url_for('add_house') }}" method=post class=add-entry>
-      <dl>
-        <dt>Nombre:
-        <dd><input type=text size=30 name=title>
-        <dt>Construccion:
-        <dd><input name=text size=30></input>
-        <dt>Terreno:
-        <dd><input name=text size=30></input>
-        <dt>Precio:
-        <dd><input name=text size=30></input>
-        <dt>Balance:
-        <dd><input name=text size=30></input>
-        <dt>Estatus:
-        <dd><input name=text size=30></input>
-        <dt>Vendedor:
-        <dd><input name=text size=30></input>
-        <dd><input type=submit value=Agregar>
-      </dl>
-    </form>    
+    <div class="col-lg-12">
+      <h1 class="page-header">Agregar Casa</h1>
+    </div>
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Introdusca los datos de la casa
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <form action="{{ url_for('add_house') }}" method=post role="form">
+                <div class="form-group">
+                  <label>Nombre</label>
+                  <input type="text" name="nombre">
+                </div>
+                <div class="form-group">
+                  <label>Direccion</label>
+                  <input type="text" name="direccion">
+                </div>
+                <div class="form-group">
+                  <label>Vendedor</label>
+                  <select class="form-control" name="vendedor">
+                  {% for vendedor in vendedores %}
+                    <option value="{{vendedor.id}}">{{ vendedor.nombre }} {{ vendedor.apellidos }}</option>
+                  {% else %}
+                  {% endfor %}
+                  </select>                  
+                </div>
+                <div class="form-group">
+                  <label>Metros de Construción</label>
+                  <input type="number" step="any" min="0" max="10000" name="construccion">m<sup>2</sup>
+                </div>
+                <div class="form-group">
+                  <label>Metros de Terreno</label>
+                  <input type="number" step="any" min="0" max="100000" name="terreno">m<sup>2</sup>
+                </div>
+                <div class="form-group">
+                  <label>Valor</label>
+                  <input type="number" step=".5" min="0" max="10000000000" name="valor">
+                </div>
+                <div class="form-group">
+                  <label>Balance</label>
+                  <input type="number" step=".5" min="-10000000000" max="10000000000" name="balance">
+                </div>
+                <div class="form-group">
+                  <label>Status</label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status1" value="1" checked>Casa en venta
+                  </label>                  
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status2" value="2" checked>Venta en Proceso
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status3" value="3" checked>Venta Finalizada
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status4" value="4" checked>Opción
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status5" value="5" checked>Corretaje
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status6" value="6" checked>Huerfanito
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status7" value="7" checked>Premio
+                  </label>
+                  <label class="radio-inline">
+                      <input type="radio" name="status" id="status8" value="8" checked>Prestamo Personal
+                  </label>
+                </div>     
+                <div class="form-group">
+                  <button type="submit" class="btn btn-default">Agregar</button>
+                  <button type="reset" class="btn btn-default">Reiniciar Forma</button>
+                </div>        
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   {% else %}
   <h1>Session no iniciada</h1>
   {% endif %}  

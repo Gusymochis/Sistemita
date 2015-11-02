@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+    {% else %}
+    <li><em>No se encontro ninguna casa en la base de datos!</em>
+    {% endfor %}
+  {% else %}
+  <h1>Session no iniciada</h1>
+  {% endif %}
+  
+  </ul>
+{% endblock %}

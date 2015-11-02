@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
-    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+    <form action="{{ url_for('add_house') }}" method=post class=add-entry>
       <dl>
         <dt>Nombre:
         <dd><input type=text size=30 name=title>
@@ -19,13 +19,8 @@
         <dd><input name=text size=30></input>
         <dd><input type=submit value=Agregar>
       </dl>
-    </form>
-  {% endif %}
-  <ul class=entries>
-  {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+    </form>    
   {% else %}
-    <li><em>No se encontro ninguna casa en la base de datos!</em>
-  {% endfor %}
-  </ul>
+  <h1>Session no iniciada</h1>
+  {% endif %}  
 {% endblock %}

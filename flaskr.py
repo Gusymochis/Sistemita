@@ -24,18 +24,18 @@ def teardown_request(exception):
         db.close()
 
 @app.route('/')
-def show_entries():
+def show_houses():
     cur = g.db.execute('select nombre, vendedor, construccion, terreno, precio, balance, status from casa order by id desc')
     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
-    return render_template('show_entries.html', entries=entries)
+    return render_template('pages/show_houses.html', entries=entries)
 
-@app.route('/add', methods=['POST'])
-def add_entry():
+@app.route('/addHouse', methods=['GET', 'POST'])
+def add_house():
+    error = None
     if not session.get('logged_in'):
         abort(401)
-    #todo add entry here
     flash('not yet implemented')
-    return redirect(url_for('show_entries'))
+    return render_template('pages/add_house.html', error=error)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -48,14 +48,14 @@ def login():
         else:
             session['logged_in'] = True
             flash('A iniciado Sesion')
-            return redirect(url_for('show_entries'))
-    return render_template('login.html', error=error)
+            return redirect(url_for('show_houses'))
+    return render_template('pages/login.html', error=error)
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
     flash('Sesion terminada')
-    return redirect(url_for('show_entries'))
+    return redirect(url_for('show_houses'))
 
 def connect_db():
 	return sqlite3.connect(app.config['DATABASE'])
